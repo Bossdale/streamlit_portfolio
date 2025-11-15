@@ -5,16 +5,6 @@ import pandas as pd
 import time
 import os
 
-#----debugging-----
-
-st.write("Root files:", os.listdir("."))
-st.write("Has 'images' folder?:", os.path.exists("images"))
-st.write("Has 'files' folder?:", os.path.exists("files"))
-if os.path.exists("images"):
-    st.write("Images:", os.listdir("images"))
-if os.path.exists("files"):
-    st.write("Files:", os.listdir("files"))
-
 # ---- Page Config ----
 st.set_page_config(
     page_title="Shervin Dale Tabernero | Portfolio",
