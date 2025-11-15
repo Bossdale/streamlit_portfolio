@@ -122,7 +122,7 @@ st.markdown(
 # ---- Sidebar ----
 with st.sidebar:
     # Safe profile image loading
-    profile_path = "images/profile_pic.png"
+    profile_path = "images/profile.png"
     if os.path.exists(profile_path):
         st.image(profile_path, use_container_width=True)
     else:
