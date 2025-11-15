@@ -17,14 +17,30 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    /* General */
-    body, .stApp {
-        background-color: #F5F8FB;
-        color: #2B2B2B;
-        font-family: "Segoe UI", sans-serif;
+
+    /* ❗ Force Light Mode (Fixes black background issue on Streamlit Cloud) */
+    @media (prefers-color-scheme: dark) {
+        html, body, [data-testid="stAppViewContainer"] {
+            background-color: #F5F8FB !important;
+            color: #2B2B2B !important;
+        }
     }
 
-    /* Titles and Headers */
+    /* App Background */
+    [data-testid="stAppViewContainer"] {
+        background-color: #F5F8FB !important;
+    }
+
+    /* Sidebar */
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #4D7EAF, #3B6B99) !important;
+        color: white !important;
+    }
+    [data-testid="stSidebar"] * {
+        color: #FFFFFF !important;
+    }
+
+    /* Headings */
     .big-title {
         font-size: 36px;
         font-weight: 700;
@@ -36,61 +52,68 @@ st.markdown(
         margin-bottom: 16px;
     }
 
-    /* Cards */
+    /* Project Cards */
     .project-card {
-        border-radius: 12px;
         background: linear-gradient(180deg, #FFFFFF, #F0F6FB);
         border: 1px solid #D3E0EC;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        border-radius: 12px;
         padding: 18px;
-        transition: 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        transition: 0.25s ease;
     }
     .project-card:hover {
         transform: translateY(-3px);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-    }
-
-    /* Sidebar */
-    [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #4D7EAF, #3B6B99);
-        color: white;
-    }
-    [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3, [data-testid="stSidebar"] p, [data-testid="stSidebar"] a {
-        color: #FFFFFF !important;
-    }
-    [data-testid="stSidebar"] a:hover {
-        color: #E3ECF5 !important;
-        text-decoration: underline;
-    }
-    [data-testid="stSidebar"] hr {
-        border: 1px solid #E3ECF5;
+        box-shadow: 0 6px 16px rgba(0,0,0,0.1);
     }
 
     /* Buttons */
-    .stButton button {
+    .stButton button, .stDownloadButton button, .stFormSubmitButton button {
         background-color: #4D7EAF !important;
         color: white !important;
         border-radius: 6px !important;
         border: none !important;
     }
-    .stButton button:hover {
+    .stButton button:hover,
+    .stDownloadButton button:hover,
+    .stFormSubmitButton button:hover {
         background-color: #3B6B99 !important;
     }
 
-    /* Download Button */
-    .stDownloadButton button {
-        background-color: #4D7EAF !important;
-        color: white !important;
-        border-radius: 6px !important;
-        border: none !important;
+    /* Forms */
+    .stForm {
+        background-color: #FFFFFF !important;
+        padding: 20px !important;
+        border-radius: 12px !important;
+        border: 1px solid #D3E0EC !important;
     }
-    .stDownloadButton button:hover {
-        background-color: #3B6B99 !important;
+    .stForm label {
+        color: #2E4965 !important;
     }
 
-    /* Progress bar */
+    /* Progress Bars */
     .stProgress > div > div > div > div {
         background-color: #4D7EAF !important;
+    }
+
+    /* DataFrame Table */
+    .stDataFrame table {
+        background-color: #FFFFFF !important;
+    }
+    .stDataFrame thead tr th {
+        background-color: #E9F1FA !important;
+        color: #2E4965 !important;
+    }
+    .stDataFrame tbody tr td {
+        background-color: #FFFFFF !important;
+        color: #2E4965 !important;
+    }
+
+    /* Fix expander background */
+    .streamlit-expanderHeader {
+        color: #2E4965 !important;
+    }
+    .streamlit-expanderContent {
+        background-color: #F7FAFC !important;
     }
 
     /* Links */
@@ -102,18 +125,15 @@ st.markdown(
         color: #2E4965;
         text-decoration: underline;
     }
-    
-    .stFormSubmitButton button{
-          background-color: #4D7EAF;
-          color: white !important;
-         border-radius: 6px !important;
-         border: none !important;
+
+    /* Custom card container fix */
+    .light-card {
+        background-color: #FFFFFF;
+        border-radius: 12px;
+        padding: 12px;
+        border: 1px solid #D3E0EC;
     }
-    
-    .stForm form {
-        background-color: #4D7EAF;
-        color: white !important;
-    }
+
     </style>
     """,
     unsafe_allow_html=True
@@ -157,29 +177,6 @@ with st.sidebar:
     else:
         st.info("Resume file not found on server. (Make sure files/resume.pdf is in the repo.)")
 
-
-# ---- Sidebar ----
-# with st.sidebar:
-#     st.image("images/profile.png", use_container_width=True)
-#     st.title("Shervin Dale M. Tabernero")
-#     st.write("Frontend • Backend • Designer")
-#     st.markdown("---")
-#     st.header("Quick Links")
-#     st.markdown("- [About](#about)")
-#     st.markdown("- [Projects](#projects)")
-#     st.markdown("- [Contact](#contact)")
-#     st.markdown("---")
-#     st.write("📄 **Download my resume**")
-#
-#     with open("files/resume.pdf", "rb") as f:
-#         resume_bytes = f.read()
-#     st.download_button(
-#         label="Download Resume",
-#         data=resume_bytes,
-#         file_name="Tabernero_Resume.pdf",
-#         mime="application/pdf"
-#     )
-
 # ---- Header / Hero ----
 col1, col2 = st.columns([2, 3])
 with col1:
@@ -214,11 +211,11 @@ with left:
     - **Interests:** Web dev, mobile apps, UI/UX, databases
     """)
     st.subheader("Skills")
-    st.write("HTML / CSS / JS")
+    st.write("HTML / CSS / JS / ReactJs")
     st.progress(80)
     st.write("Python")
     st.progress(85)
-    st.write("Java / Kotlin")
+    st.write("Java / Kotlin / C / C++ / C#")
     st.progress(90)
     st.write("Databases")
     st.progress(85)
@@ -240,35 +237,54 @@ proj_col1, proj_col2, proj_col3 = st.columns(3)
 
 def render_project(col, project):
     with col:
-        st.image(project["image"], use_container_width=True)
+        # Safe project image loading
+        img_path = project["image"]
+
+        if os.path.exists(img_path):
+            # If image exists locally (e.g., images/project1.png)
+            st.image(img_path, use_container_width=True)
+        else:
+            # If local file does not exist, treat 'image' as URL
+            st.image(
+                img_path if img_path.startswith("http") else
+                "https://placehold.co/600x400/4D7EAF/FFFFFF?text=Image+Not+Found",
+                use_container_width=True
+            )
+
+        # Project title
         st.markdown(f"### {project['title']}")
+
+        # Short description
         st.write(project["short"])
+
+        # Expandable details section
         with st.expander("Read more"):
             st.write(project["details"])
             st.write(f"🔗 [View on GitHub]({project['link']})")
+
         st.markdown("</div>", unsafe_allow_html=True)
 
 projects = [
     {
-        "title": "Inventory Dashboard",
+        "title": "Inventory System - Web-based",
         "short": "PHP + Chart.js Inventory System",
-        "details": "Developed an interactive dashboard using PHP, MySQL, and Chart.js with owner and supplier views.",
-        "image": "https://placehold.co/600x400/4D7EAF/FFFFFF?text=Inventory+Dashboard",
-        "link": "https://github.com/you/inventory"
+        "details": "Developed an interactive System using HTML, CSS, PHP, MySQL, and Chart.js with owner and supplier views.",
+        "image": "images/StoreStock_logo.png",
+        "link": "https://github.com/Bossdale/StoreStock.git"
     },
     {
-        "title": "Android Task Manager",
+        "title": "Android E-commerce App",
         "short": "Kotlin + RecyclerView App",
-        "details": "Task management app with archive/restore features, RecyclerView lists, and persistent local storage.",
-        "image": "images/profile.png",
-        "link": "https://github.com/you/android-task"
+        "details": "E-commerce app with archive/restore features, RecyclerView lists, and persistent local storage.",
+        "image": "images/wildcats_prototype.png",
+        "link": "https://github.com/Tong-nvk/Wildcat-FreshFinds.git"
     },
     {
         "title": "Cooking Simulation Game",
         "short": "Java FXGL Game",
         "details": "Cooking simulation with custom entities, drag-and-drop mechanics, and interactive gameplay.",
-        "image": "https://placehold.co/600x400/4D7EAF/FFFFFF?text=Game",
-        "link": "https://github.com/you/game"
+        "image": "images/cooking_ina.png",
+        "link": "https://github.com/ero-s/Cooking-Ina-Ang-Sarap-.git"
     }
 ]
 
@@ -287,8 +303,8 @@ st.markdown(
 )
 
 projects_df = pd.DataFrame([
-    {"name": "Inventory Dashboard", "year": 2025, "tech": "PHP"},
-    {"name": "Task Manager", "year": 2025, "tech": "Kotlin"},
+    {"name": "Inventory System", "year": 2025, "tech": "PHP"},
+    {"name": "E-commerce Android App", "year": 2025, "tech": "Kotlin"},
     {"name": "Cooking Sim", "year": 2025, "tech": "Java"}
 ])
 
