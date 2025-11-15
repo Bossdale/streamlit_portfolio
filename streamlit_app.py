@@ -17,30 +17,14 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-
-    /* ❗ Force Light Mode (Fixes black background issue on Streamlit Cloud) */
-    @media (prefers-color-scheme: dark) {
-        html, body, [data-testid="stAppViewContainer"] {
-            background-color: #F5F8FB !important;
-            color: #2B2B2B !important;
-        }
+    /* General */
+    body, .stApp {
+        background-color: #F5F8FB;
+        color: #2B2B2B;
+        font-family: "Segoe UI", sans-serif;
     }
 
-    /* App Background */
-    [data-testid="stAppViewContainer"] {
-        background-color: #F5F8FB !important;
-    }
-
-    /* Sidebar */
-    [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #4D7EAF, #3B6B99) !important;
-        color: white !important;
-    }
-    [data-testid="stSidebar"] * {
-        color: #FFFFFF !important;
-    }
-
-    /* Headings */
+    /* Titles and Headers */
     .big-title {
         font-size: 36px;
         font-weight: 700;
@@ -52,68 +36,61 @@ st.markdown(
         margin-bottom: 16px;
     }
 
-    /* Project Cards */
+    /* Cards */
     .project-card {
+        border-radius: 12px;
         background: linear-gradient(180deg, #FFFFFF, #F0F6FB);
         border: 1px solid #D3E0EC;
-        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         padding: 18px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        transition: 0.25s ease;
+        transition: 0.3s ease;
     }
     .project-card:hover {
         transform: translateY(-3px);
-        box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Sidebar */
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #4D7EAF, #3B6B99);
+        color: white;
+    }
+    [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3, [data-testid="stSidebar"] p, [data-testid="stSidebar"] a {
+        color: #FFFFFF !important;
+    }
+    [data-testid="stSidebar"] a:hover {
+        color: #E3ECF5 !important;
+        text-decoration: underline;
+    }
+    [data-testid="stSidebar"] hr {
+        border: 1px solid #E3ECF5;
     }
 
     /* Buttons */
-    .stButton button, .stDownloadButton button, .stFormSubmitButton button {
+    .stButton button {
         background-color: #4D7EAF !important;
         color: white !important;
         border-radius: 6px !important;
         border: none !important;
     }
-    .stButton button:hover,
-    .stDownloadButton button:hover,
-    .stFormSubmitButton button:hover {
+    .stButton button:hover {
         background-color: #3B6B99 !important;
     }
 
-    /* Forms */
-    .stForm {
-        background-color: #FFFFFF !important;
-        padding: 20px !important;
-        border-radius: 12px !important;
-        border: 1px solid #D3E0EC !important;
+    /* Download Button */
+    .stDownloadButton button {
+        background-color: #4D7EAF !important;
+        color: white !important;
+        border-radius: 6px !important;
+        border: none !important;
     }
-    .stForm label {
-        color: #2E4965 !important;
+    .stDownloadButton button:hover {
+        background-color: #3B6B99 !important;
     }
 
-    /* Progress Bars */
+    /* Progress bar */
     .stProgress > div > div > div > div {
         background-color: #4D7EAF !important;
-    }
-
-    /* DataFrame Table */
-    .stDataFrame table {
-        background-color: #FFFFFF !important;
-    }
-    .stDataFrame thead tr th {
-        background-color: #E9F1FA !important;
-        color: #2E4965 !important;
-    }
-    .stDataFrame tbody tr td {
-        background-color: #FFFFFF !important;
-        color: #2E4965 !important;
-    }
-
-    /* Fix expander background */
-    .streamlit-expanderHeader {
-        color: #2E4965 !important;
-    }
-    .streamlit-expanderContent {
-        background-color: #F7FAFC !important;
     }
 
     /* Links */
@@ -125,15 +102,18 @@ st.markdown(
         color: #2E4965;
         text-decoration: underline;
     }
-
-    /* Custom card container fix */
-    .light-card {
-        background-color: #FFFFFF;
-        border-radius: 12px;
-        padding: 12px;
-        border: 1px solid #D3E0EC;
+    
+    .stFormSubmitButton button{
+          background-color: #4D7EAF;
+          color: white !important;
+         border-radius: 6px !important;
+         border: none !important;
     }
-
+    
+    .stForm form {
+        background-color: #4D7EAF;
+        color: white !important;
+    }
     </style>
     """,
     unsafe_allow_html=True
